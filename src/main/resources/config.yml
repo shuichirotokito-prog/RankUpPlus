@@ -1,0 +1,152 @@
+# =============================================
+#   RankUpPlus - Advanced Rankup Plugin
+#   by Kazumiii
+# =============================================
+#
+# This is the GENERAL settings file. Other config has moved to its own file
+# for clarity — edit these separately:
+#   ranks.yml      - the rank ladder, requirements, rewards, and prestige
+#   scoreboard.yml - the personalized sidebar scoreboard
+#   tablist.yml    - tab list sorting and rank prefixes
+#   chat.yml       - per-rank chat format
+#
+# All files reload together with /rankadmin reload.
+
+settings:
+  # Prefix shown in all plugin messages
+  prefix: "&8[&bRankUp&3+&8] &r"
+
+  # Currency type: VAULT (requires Vault), PLAYER_XP, ITEM
+  currency-type: VAULT
+
+  # Whether to broadcast rankups to the server
+  broadcast-rankup: true
+  broadcast-format: "&e✦ &b{player} &7has ranked up to &{rank_color}{rank_display} &7✦"
+
+  # Sound played on successful rankup
+  rankup-sound: ENTITY_PLAYER_LEVELUP
+  rankup-sound-volume: 1.0
+  rankup-sound-pitch: 1.2
+
+  # Firework on rankup
+  firework-on-rankup: true
+
+  # Title shown on rankup
+  show-title: true
+  title: "&b✦ RANK UP! ✦"
+  subtitle: "&7You are now &{rank_color}{rank_display}"
+  title-fade-in: 10
+  title-stay: 60
+  title-fade-out: 20
+
+  # Confirmation GUI before ranking up
+  confirm-rankup: true
+
+  # Auto-rankup: automatically rank up when requirements are met
+  auto-rankup: false
+
+  # Max rank name length for display
+  max-rank-name-length: 16
+
+  # LuckPerms integration (requires LuckPerms). Safe to leave on even if
+  # LuckPerms isn't installed — RankUpPlus detects its absence automatically.
+  luckperms-integration: true
+
+  # PlaceholderAPI integration
+  placeholderapi-integration: true
+
+  # Cooldown between rankups in seconds (0 = no cooldown)
+  rankup-cooldown: 0
+
+  # Checks SpigotMC and/or Modrinth once on startup for a newer published
+  # version, and logs a console notice (nothing more — no auto-updating) if
+  # one is found. Never blocks startup and never errors loudly if the check
+  # fails (e.g. no internet access) — it just quietly skips.
+  #
+  # There's only an on/off switch here, not a resource id or project slug —
+  # those identify which plugin/resource to check against, which is the same
+  # for every server running this jar, not something you as the person
+  # installing it should need to fill in. They're set once by the plugin's
+  # developer as constants in UpdateChecker.java, not here.
+  update-checker:
+    enabled: true
+
+  # Storage type: YAML (per-player files, default) or MYSQL (requires the
+  # mysql section below to be filled in correctly). Switching this requires
+  # a server restart, not just /rankadmin reload.
+  storage-type: YAML
+
+mysql:
+  host: localhost
+  port: 3306
+  database: rankupplus
+  username: root
+  password: password
+  table-prefix: "rup_"
+  use-ssl: false
+  # Note: the current implementation uses a single auto-reconnecting JDBC
+  # connection rather than a true connection pool, since this plugin's
+  # database traffic (join/quit/rankup/periodic saves) is low-frequency
+  # enough not to need one. pool-size is not currently used.
+  pool-size: 10
+
+# =============================================
+#   LEADERBOARDS (/ranktop)
+# =============================================
+leaderboards:
+  size: 10
+  refresh-minutes: 5
+
+# =============================================
+#   GUI CONFIGURATION
+# =============================================
+gui:
+  rankup-menu:
+    title: "&8✦ &bRank &3Up &8✦"
+    rows: 6   # Minimum 6 — this menu's layout uses fixed slots that need a full 54-slot inventory.
+
+  ranks-overview:
+    title: "&8✦ &bAll &3Ranks &8✦"
+    rows: 6   # Minimum 6 — the back button sits in the bottom row.
+
+  confirm-menu:
+    title: "&8Confirm Rankup"
+    rows: 3   # Minimum 3 — this menu's layout needs a full 27-slot inventory.
+
+  # Glass pane filler material
+  filler-material: BLACK_STAINED_GLASS_PANE
+  filler-name: " "
+
+  # Progress bar settings
+  progress-bar:
+    length: 20
+    filled-char: "■"
+    empty-char: "□"
+    filled-color: "&a"
+    empty-color: "&8"
+
+# =============================================
+#   MESSAGES
+# =============================================
+messages:
+  no-permission: "&cYou don't have permission to do that."
+  player-only: "&cThis command is for players only."
+  invalid-player: "&cPlayer &e{player} &cnot found."
+  invalid-rank: "&cRank &e{rank} &cdoes not exist."
+  already-max-rank: "&cYou are already at the maximum rank!"
+  already-that-rank: "&cYou already have that rank!"
+
+  not-enough-money: "&cYou need &e${cost} &cmore to rank up! (Have: &e${balance}&c)"
+  not-enough-xp: "&cYou need &e{cost} XP levels &cto rank up!"
+  requirements-not-met: "&cYou don't meet all requirements for this rank!"
+  on-cooldown: "&cYou must wait &e{time} &cbefore ranking up again."
+
+  rankup-success: "&aYou have successfully ranked up to &{rank_color}{rank_display}&a!"
+  rankup-cancelled: "&7Rankup cancelled."
+
+  admin-set-rank: "&aSet &e{player}'s &arank to &b{rank}&a."
+  admin-reset-rank: "&aReset &e{player}'s &arank to DEFAULT."
+  admin-reload: "&aConfiguration reloaded successfully."
+
+  prestige-success: "&5✦ You have prestiged! You are now Prestige {prestige}! ✦"
+  prestige-max: "&5You have reached the maximum prestige level!"

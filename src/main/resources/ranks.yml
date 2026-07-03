@@ -1,0 +1,248 @@
+# =============================================
+#   RANK LADDER CONFIGURATION
+# =============================================
+# Ranks are processed in the order they appear below. Each rank can have:
+#   display:          Display name (supports color codes)
+#   color:            Single chat color CODE CHARACTER for this rank (e.g. "a", "c", "5") —
+#                      not a full "&a" code, just the character after the &.
+#   permission:       LuckPerms group to assign on reaching this rank
+#   cost:             Money/XP cost to rank up FROM this rank to the next
+#   requirements:     List of extra requirements (see REQUIREMENT TYPES below)
+#   commands:         Console commands run on rankup, for the rank being reached
+#   player-commands:  Commands run as the player on rankup, for the rank being reached
+#   rewards:          Items given on rankup, for the rank being reached
+#   prestige:         Whether reaching this rank triggers a prestige reset
+#
+# =============================================
+#   REQUIREMENT TYPES
+# =============================================
+# Set "type" to one of these in a rank's requirements list. "value" and
+# "display" apply to every type; some types need extra fields too.
+#
+#   PLAYTIME       value: minutes of playtime (tracked by RankUpPlus itself)
+#   KILLS          value: player kills (tracked by RankUpPlus itself)
+#   DEATHS         value: deaths (tracked by RankUpPlus itself)
+#   BALANCE        value: a Vault economy balance required, ON TOP OF the rank cost
+#                  (the rank cost is always checked; this is an extra floor —
+#                  e.g. cost: 1000 + a BALANCE requirement of 5000 means the
+#                  player needs 6000 total: 1000 gets spent, 5000 stays untouched)
+#   LEVEL          value: Minecraft XP level
+#   BLOCKS_BROKEN  value: total blocks broken (tracked since this plugin was installed —
+#                  there's no single built-in Bukkit statistic for this across all block types)
+#   BLOCKS_PLACED  value: total blocks placed (tracked since this plugin was installed, same reason)
+#   PERMISSION     permission: the permission node to check (value/display still apply,
+#                  but value is unused for this type — only presence of the permission matters)
+#   STATISTIC      statistic: name of an UNQUALIFIED org.bukkit.Statistic — one that doesn't
+#                  need a Material/EntityType qualifier. Useful ones: JUMP, PLAYER_KILLS,
+#                  PLAY_ONE_MINUTE, DAMAGE_DEALT, DAMAGE_TAKEN, MOB_KILLS, FISH_CAUGHT,
+#                  ANIMALS_BRED, TIME_SINCE_DEATH, DROP_COUNT. Statistics that need a
+#                  qualifier (like MINE_BLOCK for a specific block type) are NOT supported
+#                  here — use BLOCKS_BROKEN/BLOCKS_PLACED for general block totals instead.
+#   CUSTOM         always counted as met; for purely informational/display requirements
+#                  (e.g. showing "&6Must apply via Discord" as a line with nothing to check)
+#
+# Examples:
+#   - type: PERMISSION
+#     permission: "myserver.vip"
+#     display: "&6VIP Status"
+#   - type: BALANCE
+#     value: 50000
+#     display: "&a$50,000 in the bank (on top of rank cost)"
+#   - type: STATISTIC
+#     statistic: PLAYER_KILLS
+#     value: 25
+#     display: "&c25 Player Kills (statistic-based)"
+# =============================================
+
+ranks:
+  DEFAULT:
+    display: "Default"
+    color: "7"
+    permission: "default"
+    lore:
+      - "&7The starting rank for all players."
+    cost: 1000
+    requirements: []
+    commands: []
+    player-commands: []
+    rewards: []
+
+  E:
+    display: "E"
+    color: "f"
+    permission: "rank-e"
+    lore:
+      - "&7Begin your journey!"
+    cost: 5000
+    requirements: []
+    commands:
+      - "say {player} has reached rank E!"
+    player-commands: []
+    rewards: []
+
+  D:
+    display: "D"
+    color: "a"
+    permission: "rank-d"
+    lore:
+      - "&aGetting started on the path to greatness."
+    cost: 15000
+    requirements: []
+    commands: []
+    player-commands: []
+    rewards:
+      - material: DIAMOND
+        amount: 3
+        name: "&bRank Reward"
+        lore:
+          - "&7For reaching Rank D!"
+
+  C:
+    display: "C"
+    color: "b"
+    permission: "rank-c"
+    lore:
+      - "&bA solid mid-rank player."
+    cost: 35000
+    requirements:
+      - type: PLAYTIME
+        value: 120
+        display: "&72h Playtime"
+    commands: []
+    player-commands: []
+    rewards:
+      - material: DIAMOND_SWORD
+        amount: 1
+        name: "&bRank C Sword"
+        enchants:
+          SHARPNESS: 2
+
+  B:
+    display: "B"
+    color: "e"
+    permission: "rank-b"
+    lore:
+      - "&eProving yourself worthy."
+    cost: 75000
+    requirements:
+      - type: PLAYTIME
+        value: 300
+        display: "&75h Playtime"
+    commands: []
+    player-commands: []
+    rewards:
+      - material: GOLDEN_APPLE
+        amount: 16
+        name: "&eRank B Gift"
+
+  A:
+    display: "A"
+    color: "6"
+    permission: "rank-a"
+    lore:
+      - "&6Rising above the rest."
+    cost: 150000
+    requirements:
+      - type: PLAYTIME
+        value: 600
+        display: "&710h Playtime"
+      - type: KILLS
+        value: 50
+        display: "&c50 Player Kills"
+    commands: []
+    player-commands: []
+    rewards:
+      - material: ELYTRA
+        amount: 1
+        name: "&6Wings of Rank A"
+
+  S:
+    display: "S"
+    color: "c"
+    permission: "rank-s"
+    lore:
+      - "&cElite players only."
+    cost: 350000
+    requirements:
+      - type: PLAYTIME
+        value: 1200
+        display: "&720h Playtime"
+      - type: KILLS
+        value: 100
+        display: "&c100 Player Kills"
+    commands: []
+    player-commands: []
+    rewards:
+      - material: NETHERITE_INGOT
+        amount: 4
+        name: "&cS-Rank Netherite"
+
+  SS:
+    display: "SS"
+    color: "5"
+    permission: "rank-ss"
+    lore:
+      - "&5Beyond ordinary ranks."
+    cost: 750000
+    requirements:
+      - type: PLAYTIME
+        value: 3000
+        display: "&750h Playtime"
+      - type: KILLS
+        value: 250
+        display: "&c250 Player Kills"
+    commands: []
+    player-commands: []
+    rewards:
+      - material: BEACON
+        amount: 1
+        name: "&5SS Prestige Beacon"
+
+  SSS:
+    display: "SSS"
+    color: "d"
+    permission: "rank-sss"
+    lore:
+      - "&dThe pinnacle of achievement!"
+    cost: 2000000
+    requirements:
+      - type: PLAYTIME
+        value: 6000
+        display: "&7100h Playtime"
+      - type: KILLS
+        value: 500
+        display: "&c500 Player Kills"
+    commands:
+      - "broadcast &d{player} &7has achieved the legendary &dSSS &7rank!"
+    player-commands: []
+    rewards:
+      - material: NETHER_STAR
+        amount: 1
+        name: "&dLegend Star"
+    prestige: true
+
+# =============================================
+#   PRESTIGE CONFIGURATION
+# =============================================
+prestige:
+  enabled: true
+  max-prestige: 10
+  reset-rank: true          # Reset rank back to DEFAULT on prestige
+  keep-balance: false       # Keep money on prestige
+  reset-stats: false        # Reset playtime/kills/deaths/blocks broken+placed on prestige.
+  # Set true if you want rank requirements (e.g. "2h Playtime")
+  # to need to be earned again after every prestige.
+  cost-multiplier: 1.5      # Each prestige multiplies all rank costs by this
+
+  display-format: "&5[P{prestige}]"
+
+  rewards-per-prestige:
+    1:
+      commands:
+        - "give {player} diamond_block 10"
+    5:
+      commands:
+        - "give {player} beacon 1"
+    10:
+      commands:
+        - "give {player} nether_star 3"

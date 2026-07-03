@@ -1,0 +1,33 @@
+# =============================================
+#   SCOREBOARD (personalized sidebar)
+# =============================================
+scoreboard:
+  enabled: true
+  default-on: true          # Whether the sidebar is on by default for new sessions
+  update-interval-seconds: 2
+  title: "&b&lRankUp&3&l+"
+
+  # Placeholders available in every line below:
+  #   {player} {rank_color} {rank_display} {prestige} {prestige_display}
+  #   {balance} {next_cost} {playtime} {kills} {deaths}
+  #   {blocks_broken} {blocks_placed} {online} {max_players} {booster}
+  #
+  # Any registered PlaceholderAPI placeholder also works here (e.g. %vault_eco_balance%,
+  # %luckperms_prefix%, %statistic_player_kills%) as long as PlaceholderAPI and the
+  # relevant plugin are installed — RankUpPlus passes lines through PAPI before display.
+  #
+  # Keep lines reasonably short — long lines get visually clipped by the client.
+  # Players can toggle their own sidebar with /rankup scoreboard
+  lines:
+    - "&8&m                    "
+    - "&7Rank: &{rank_color}{rank_display} {prestige_display}"
+    - "&7Balance: &e{balance}"
+    - "&7Next Rank: &e{next_cost}"
+    - " "
+    - "&7Playtime: &b{playtime}m"
+    - "&7Kills: &c{kills} &7Deaths: &e{deaths}"
+    - " "
+    - "&7Booster: {booster}"
+    - " "
+    - "&7Online: &a{online}&7/&a{max_players}"
+    - "&8&m                    "

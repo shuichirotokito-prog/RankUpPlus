@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.11'
+}
+
+group = 'com.kazumiii'
+version = '1.0.0'
+description = 'RankUpPlus - Advanced Rankup Plugin'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://repo.extendedclip.com/releases/' }
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+    compileOnly 'net.luckperms:api:5.5'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.bstats:bstats-bukkit:3.2.1'
+    implementation('org.mariadb.jdbc:mariadb-java-client:3.5.9')
+}
+
+shadowJar {
+    relocate 'com.google.gson', 'com.kazumiii.rankupplus.libs.gson'
+    relocate 'org.bstats', 'com.kazumiii.rankupplus.libs.bstats'
+    archiveClassifier.set('')
+    archiveFileName.set("RankUpPlus-${version}.jar")
+    destinationDirectory.set(file("$rootDir/output"))
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+compileJava.options.encoding = 'UTF-8'
+
+processResources {
+    filteringCharset = 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand(version: project.version)
+    }
+}

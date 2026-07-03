@@ -1,0 +1,39 @@
+# =============================================
+#   CHAT FORMAT
+# =============================================
+# Controls how chat messages look. Every rank can have its own fully custom
+# layout — not just a different color, but a different structure entirely
+# (e.g. give your top rank a flashier format with extra brackets/symbols).
+#
+# Placeholders available in every format string below:
+#   {player}        - the player's name
+#   {message}       - the chat message itself
+#   {rank_color}    - this rank's color CHARACTER (e.g. "a"), use as &{rank_color}
+#   {rank_display}  - this rank's display name (e.g. "SSS")
+#   {prestige}      - prestige level number (0 if none)
+#   {prestige_display} - formatted prestige tag (e.g. "&5[P3]"), empty if prestige 0
+#
+# Any registered PlaceholderAPI placeholder also works here (e.g. %luckperms_prefix%,
+# %vault_eco_balance%) as long as PlaceholderAPI and the relevant plugin are installed.
+#
+# Resolution order for a given player's message:
+#   1. If per-rank.<THEIR RANK ID> exists below, use it.
+#   2. Otherwise, use default-format.
+# enabled: false turns this whole feature off and leaves chat exactly as it
+# was before RankUpPlus (or as set by another chat plugin).
+
+chat:
+  enabled: true
+
+  default-format: "&7[&{rank_color}{rank_display}&7]{prestige_display} &f{player}&8: &7{message}"
+
+  per-rank:
+    DEFAULT: "&7[&7{rank_display}&7] &f{player}&8: &7{message}"
+    E: "&7[&f{rank_display}&7] &f{player}&8: &7{message}"
+    D: "&7[&a{rank_display}&7] &f{player}&8: &f{message}"
+    C: "&7[&b{rank_display}&7] &f{player}&8: &f{message}"
+    B: "&7[&e{rank_display}&7] &f{player}&8: &f{message}"
+    A: "&7[&6{rank_display}&7] &f{player}&8: &f{message}"
+    S: "&8[&c&l{rank_display}&8] &c{player}&8: &f{message}"
+    SS: "&8[&5&l{rank_display}&8]{prestige_display} &5{player}&8: &f{message}"
+    SSS: "&8»&d&l{rank_display}&8«{prestige_display} &d&l{player} &8» &f{message}"

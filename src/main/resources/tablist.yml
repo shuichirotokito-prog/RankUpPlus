@@ -1,0 +1,12 @@
+# =============================================
+#   TAB LIST
+# =============================================
+tablist:
+  enabled: true
+  sort-by-rank: true        # Group/sort players in the tab list by rank order.
+  # If false, players are grouped by rank id alphabetically instead
+  # (still useful for colored prefixes, just no guaranteed order).
+  show-rank-prefix: true    # Show a colored rank tag before each name in the tab list.
+
+  # {rank_color} and {rank_display} are available here too.
+  prefix-format: "&{rank_color}[{rank_display}] &r"

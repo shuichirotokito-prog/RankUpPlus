@@ -1,0 +1,64 @@
+name: RankUpPlus
+version: '${version}'
+main: com.kazumiii.rankupplus.RankUpPlus
+api-version: '1.21'
+description: Advanced RankUp plugin for Survival, SkyBlock, Factions & more
+author: Kazumiii
+website: https://github.com/Kazumiii/RankUpPlus
+softdepend: [Vault, LuckPerms, PlaceholderAPI]
+# Deliberately NOT declaring folia-supported: true. This plugin uses Bukkit's
+# global task scheduler throughout (playtime tracking, scoreboard refresh,
+# booster expiry, leaderboard refresh, auto-rankup), which isn't Folia-safe.
+# Without this flag, Folia's own loader won't load the plugin at all — see
+# RankUpPlus#isFolia() for the additional in-code safety net. Don't add this
+# flag until the plugin has actually been migrated to region-aware scheduling.
+
+commands:
+  rankup:
+    description: Rank up to the next rank, or toggle your scoreboard with "/rankup scoreboard"
+    usage: /rankup [scoreboard]
+    aliases: [ru]
+    permission: rankupplus.use
+
+  rankupgui:
+    description: Open the RankUp GUI
+    usage: /rankupgui
+    aliases: [rug, rankgui]
+    permission: rankupplus.use
+
+  ranks:
+    description: View all available ranks
+    usage: /ranks
+    permission: rankupplus.use
+
+  ranktop:
+    description: View rank/prestige/stat leaderboards
+    usage: /ranktop [rank|prestige|playtime|kills|deaths|blocksbroken|blocksplaced]
+    aliases: [rtop, leaderboard]
+    permission: rankupplus.use
+
+  rankadmin:
+    description: Admin commands for RankUpPlus
+    usage: /rankadmin <set|reset|give|info|reload|prestige|booster|edit> [player] [rank]
+    aliases: [radmin, ra]
+    permission: rankupplus.admin
+
+permissions:
+  rankupplus.use:
+    description: Allows using rankup commands
+    default: true
+  rankupplus.admin:
+    description: Allows admin commands
+    default: op
+  rankupplus.bypass.cost:
+    description: Bypass rankup cost
+    default: op
+  rankupplus.bypass.cooldown:
+    description: Bypass rankup cooldown
+    default: op
+  rankupplus.bypass.requirements:
+    description: Bypass rankup requirements
+    default: op
+  rankupplus.notify.admin:
+    description: Receive admin notifications on player rankups
+    default: op
